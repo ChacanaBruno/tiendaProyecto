@@ -3,7 +3,6 @@ package com.proyecto.tienda.controller;
 import com.proyecto.tienda.dto.ProductUpdateDTO;
 import com.proyecto.tienda.model.Product;
 import com.proyecto.tienda.service.IProductService;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,6 +34,11 @@ public class ProductController {
     public String deleteProductById(@PathVariable Long id) {
         productService.deleteProductById(id);
         return "Successfully deleted product";
+    }
+
+    @GetMapping("/products/find/{id}")
+    public Product findProductById(@PathVariable Long id) {
+        return productService.findProductById(id);
     }
 
     @PutMapping("product/edit/{code_product}")
