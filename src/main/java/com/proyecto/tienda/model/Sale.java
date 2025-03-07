@@ -1,5 +1,6 @@
 package com.proyecto.tienda.model;
 
+import com.proyecto.tienda.dto.ProductUpdateDTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -31,5 +32,9 @@ public class Sale {
         this.date_sale = date_sale;
         this.total_amount = total_amount;
         this.client = client;
+    }
+
+    publoc void updateFromDTO(ProductUpdateDTO dto) {
+
     }
 }

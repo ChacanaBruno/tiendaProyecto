@@ -1,6 +1,7 @@
 package com.proyecto.tienda.service.sale;
 
 import com.proyecto.tienda.dto.ClientUpdateDTO;
+import com.proyecto.tienda.dto.SaleUpdateDTO;
 import com.proyecto.tienda.model.Client;
 import com.proyecto.tienda.model.Sale;
 
@@ -13,8 +14,8 @@ public interface ISaleService {
 
     public void deleteSaleById(Long id);
 
-    public Client findSaleById(Long id);
+    public Sale findSaleById(Long id);
 
-    public void editSale(Long id_original, ClientUpdateDTO clientUpdateDTO);
+    public void editSale(Long id_original, SaleUpdateDTO saleUpdateDTO);
 
 }
