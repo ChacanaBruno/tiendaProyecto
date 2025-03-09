@@ -5,6 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
+
 public class ClientUpdateDTO {
     // atributos que se pueden actualizar:
     private String first_name ;

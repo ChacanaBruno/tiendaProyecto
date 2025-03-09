@@ -12,6 +12,10 @@ public class ProductUpdateDTO {
     private Double price;
     private Double quantityAvailable;
 
+    public ProductUpdateDTO() {
+
+    }
+
 
 }
 

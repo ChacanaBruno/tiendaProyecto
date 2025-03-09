@@ -1,10 +1,8 @@
 package com.proyecto.tienda.model;
 
 import com.proyecto.tienda.dto.ProductUpdateDTO;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.proyecto.tienda.dto.SaleUpdateDTO;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,7 +19,9 @@ public class Sale {
     private Long code_sale;
     private LocalDate date_sale;
     private Double total_amount;
+    @OneToMany
     private List<Product> listProducts;
+    @OneToOne
     private Client client;
 
     public Sale() {
@@ -34,7 +34,18 @@ public class Sale {
         this.client = client;
     }
 
-    publoc void updateFromDTO(ProductUpdateDTO dto) {
-
+    public void updateFromDTO(SaleUpdateDTO saleUpdateDTO) {
+        if(saleUpdateDTO.getDate_sale() != null) {
+            this.setDate_sale(saleUpdateDTO.getDate_sale());
+        }
+        if(saleUpdateDTO.getTotal_amount() != null) {
+            this.setTotal_amount(saleUpdateDTO.getTotal_amount());
+        }
+        if(saleUpdateDTO.getListProducts() != null) {
+            this.setListProducts(saleUpdateDTO.getListProducts());
+        }
+        if(saleUpdateDTO.getClient() != null) {
+            this.setClient(saleUpdateDTO.getClient());
+        }
     }
 }

@@ -4,9 +4,11 @@ import com.proyecto.tienda.dto.SaleUpdateDTO;
 import com.proyecto.tienda.model.Client;
 import com.proyecto.tienda.model.Sale;
 import com.proyecto.tienda.repository.ISaleRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class SaleService implements ISaleService{
 
     private ISaleRepository saleRepository;
@@ -43,6 +45,6 @@ public class SaleService implements ISaleService{
 
         Sale saleEdit = this.findSaleById(id_original);
 
-
+        saleEdit.updateFromDTO(saleUpdateDTO);
     }
 }

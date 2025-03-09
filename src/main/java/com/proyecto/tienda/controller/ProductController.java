@@ -50,22 +50,5 @@ public class ProductController {
         return productService.findProductById(code_product);
     }
 
-/*
-    @PutMapping("product/edit/{code_product}")
-    public Product editProduct(@PathVariable Long code_product,
-
-            @RequestParam(required = false , name = "name")  String nameNew,
-            @RequestParam(required = false , name = "brand") String brandNew,
-            @RequestParam(required = false , name = "price") Double priceNew,
-            @RequestParam(required = false , name = "quantity_available") Double quantityAvailableNew)
-    {
-
-        productService.editProduct(code_product,nameNew, brandNew, priceNew, quantityAvailableNew);
-
-        Product product = productService.findProductById(code_product);
-
-        return product;
-    }
-*/
     /*Si es necesario se puede crear una metodo para solo cambiar la id, pero es mala practica.*/
 }
