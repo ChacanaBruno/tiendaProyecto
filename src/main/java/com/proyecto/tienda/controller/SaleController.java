@@ -2,6 +2,7 @@ package com.proyecto.tienda.controller;
 import com.proyecto.tienda.dto.SaleUpdateDTO;
 import com.proyecto.tienda.model.Sale;
 import com.proyecto.tienda.service.sale.ISaleService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,11 +20,8 @@ public class SaleController {
     }
 
     @PostMapping("/sales/create")
-    public String createProduct(@RequestBody Sale sale) {
-
-        saleService.saveSale(sale);
-
-        return "Successfully created sale";
+    public void createSale(@RequestBody Sale sale) {
+         saleService.saveSale(sale);
     }
 
     @DeleteMapping("/sales/delete/{id}")

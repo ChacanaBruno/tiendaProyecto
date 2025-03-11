@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 
 @Getter
 @Setter
@@ -18,6 +20,9 @@ public class Client {
     private String first_name ;
     private String last_name;
     private String dni;
+
+    @OneToMany(mappedBy = "client") // Relación inversa: un cliente puede tener muchas ventas
+    private List<Sale> sales;
 
     public Client() {
 

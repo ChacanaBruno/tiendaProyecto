@@ -1,6 +1,5 @@
 package com.proyecto.tienda.model;
 
-import com.proyecto.tienda.dto.ProductUpdateDTO;
 import com.proyecto.tienda.dto.SaleUpdateDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -21,7 +20,9 @@ public class Sale {
     private Double total_amount;
     @OneToMany
     private List<Product> listProducts;
-    @OneToOne
+
+    @ManyToOne // Relación con Client (muchas ventas para un cliente)
+    @JoinColumn(name = "client_id") //Se especifica la columna de la clave foránea
     private Client client;
 
     public Sale() {
@@ -47,5 +48,16 @@ public class Sale {
         if(saleUpdateDTO.getClient() != null) {
             this.setClient(saleUpdateDTO.getClient());
         }
+    }
+
+    public boolean verifyTotalAmount() {
+
+        return Math.abs(this.getTotal_amount() - this.calculateTotalAmount()) < 0.0001;
+    }
+
+    public Double calculateTotalAmount() {
+        return listProducts.stream()
+                .mapToDouble(Product::getPrice)
+                .sum();
     }
 }

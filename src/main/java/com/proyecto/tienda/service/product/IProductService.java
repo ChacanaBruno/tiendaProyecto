@@ -1,11 +1,12 @@
-package com.proyecto.tienda.service;
+package com.proyecto.tienda.service.product;
 
 import com.proyecto.tienda.dto.ProductUpdateDTO;
 import com.proyecto.tienda.model.Product;
 
 import java.util.List;
 
-public interface IProductService {
+public interface
+IProductService {
 
     public List<Product> getProducts();
 

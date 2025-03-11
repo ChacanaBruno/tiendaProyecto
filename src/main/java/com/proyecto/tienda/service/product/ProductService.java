@@ -1,4 +1,4 @@
-package com.proyecto.tienda.service;
+package com.proyecto.tienda.service.product;
 
 import com.proyecto.tienda.dto.ProductUpdateDTO;
 import com.proyecto.tienda.model.Product;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ProductService implements IProductService{
+public class ProductService implements IProductService {
 
     private IProductRepository productRepository;
 

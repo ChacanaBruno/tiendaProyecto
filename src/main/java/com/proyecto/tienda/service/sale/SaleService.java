@@ -1,9 +1,9 @@
 package com.proyecto.tienda.service.sale;
 
 import com.proyecto.tienda.dto.SaleUpdateDTO;
-import com.proyecto.tienda.model.Client;
 import com.proyecto.tienda.model.Sale;
 import com.proyecto.tienda.repository.ISaleRepository;
+import com.proyecto.tienda.service.exceptions.TotalAmountErrorException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +24,9 @@ public class SaleService implements ISaleService{
 
     @Override
     public void saveSale(Sale sale) {
+        if(!sale.verifyTotalAmount()) {
+             throw new TotalAmountErrorException();
+        }
         saleRepository.save(sale);
     }
 
@@ -47,4 +50,5 @@ public class SaleService implements ISaleService{
 
         saleEdit.updateFromDTO(saleUpdateDTO);
     }
+
 }

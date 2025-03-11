@@ -2,7 +2,7 @@ package com.proyecto.tienda.controller;
 
 import com.proyecto.tienda.dto.ProductUpdateDTO;
 import com.proyecto.tienda.model.Product;
-import com.proyecto.tienda.service.IProductService;
+import com.proyecto.tienda.service.product.IProductService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
