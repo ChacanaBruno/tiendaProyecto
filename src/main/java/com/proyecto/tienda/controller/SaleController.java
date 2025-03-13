@@ -20,8 +20,8 @@ public class SaleController {
     }
 
     @PostMapping("/sales/create")
-    public void createSale(@RequestBody Sale sale) {
-         saleService.saveSale(sale);
+    public ResponseEntity<Sale> createSale(@RequestBody Sale sale) {
+         return saleService.saveSale(sale);
     }
 
     @DeleteMapping("/sales/delete/{id}")

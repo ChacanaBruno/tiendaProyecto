@@ -1,5 +1,6 @@
 package com.proyecto.tienda.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.proyecto.tienda.dto.SaleUpdateDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -18,11 +19,20 @@ public class Sale {
     private Long code_sale;
     private LocalDate date_sale;
     private Double total_amount;
-    @OneToMany
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "sale_product",
+            joinColumns = @JoinColumn(name = "code_sale"),
+            inverseJoinColumns = @JoinColumn(name = "code_product")
+    )
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Product> listProducts;
 
-    @ManyToOne // Relación con Client (muchas ventas para un cliente)
-    @JoinColumn(name = "client_id") //Se especifica la columna de la clave foránea
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_client")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+
     private Client client;
 
     public Sale() {

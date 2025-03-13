@@ -3,13 +3,14 @@ package com.proyecto.tienda.service.sale;
 
 import com.proyecto.tienda.dto.SaleUpdateDTO;
 import com.proyecto.tienda.model.Sale;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
 public interface ISaleService {
     public List<Sale> getSales();
 
-    public void saveSale(Sale sale);
+    public ResponseEntity<Sale> saveSale(Sale sale);
 
     public void deleteSaleById(Long id);
 
