@@ -10,7 +10,7 @@ import java.util.List;
 public interface ISaleService {
     public List<Sale> getSales();
 
-    public ResponseEntity<Sale> saveSale(Sale sale);
+    public ResponseEntity<Sale> saveSale(SaleUpdateDTO save);
 
     public void deleteSaleById(Long id);
 

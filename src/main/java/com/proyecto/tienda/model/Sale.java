@@ -3,6 +3,8 @@ package com.proyecto.tienda.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.proyecto.tienda.dto.SaleUpdateDTO;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -36,14 +38,27 @@ public class Sale {
     private Client client;
 
     public Sale() {
+
     }
 
-    public Sale(Long code_sale, LocalDate date_sale, Double total_amount, Client client) {
+    //public Sale(@NotNull(message = "the date cannot be null") LocalDate dateSale, @Min(value = 1, message = "The minimum quantity is 1") Double totalAmount, @NotNull(message = "The product list cannot be null") List<Product> listProducts, @NotNull(message = "Client cannot be null") Client client) {
+    //}
+
+    public Sale(Long code_sale, LocalDate date_sale, Double total_amount, List<Product> listProducts, Client client) {
         this.code_sale = code_sale;
         this.date_sale = date_sale;
         this.total_amount = total_amount;
+        this.listProducts = listProducts;
         this.client = client;
     }
+
+    public Sale(LocalDate date_sale, Double total_amount, List<Product> listProducts,Client client) {
+        this.date_sale = date_sale;
+        this.total_amount = total_amount;
+        this.listProducts = listProducts;
+        this.client = client;
+    }
+
 
     public void updateFromDTO(SaleUpdateDTO saleUpdateDTO) {
         if(saleUpdateDTO.getDate_sale() != null) {

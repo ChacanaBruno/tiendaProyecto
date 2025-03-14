@@ -3,9 +3,13 @@ package com.proyecto.tienda.service.client;
 import com.proyecto.tienda.dto.ClientUpdateDTO;
 import com.proyecto.tienda.model.Client;
 import com.proyecto.tienda.repository.IClientRepository;
+import com.proyecto.tienda.repository.exception.ClientNotFoundException;
+import com.proyecto.tienda.service.exceptions.TotalAmountErrorException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClientService implements IClientService {
@@ -55,4 +59,12 @@ public class ClientService implements IClientService {
         this.saveClient(client);
 
     }
+
+    @Override
+    public void verifyClient(Client client) {
+        if (!clientRepository.existsById(client.getId_client())) {
+            throw new ClientNotFoundException("the client with " + client.getId_client() + "does not exist");
+        }
+    }
+
 }

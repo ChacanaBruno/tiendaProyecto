@@ -5,6 +5,7 @@ import com.proyecto.tienda.model.Product;
 import com.proyecto.tienda.repository.IProductRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -58,5 +59,36 @@ public class ProductService implements IProductService {
         this.saveProduct(product);
     }
 
+    public void updateStock(Product product, Double stock) {
+        product.setQuantity_available(stock);
+    }
 
+    @Override
+    public List<Product> verifyProducts(List<Product> products) {
+
+        List<Product> validProducts = new ArrayList<>();
+
+        for (Product product : products) {
+            Product dbProduct = productRepository.findById(product.getCode_product())
+                    .orElseThrow(() -> new IllegalArgumentException("Product not found: " + product.getCode_product()));
+
+            if (dbProduct.getQuantity_available() <= 0) {
+                throw new IllegalStateException("The product " + dbProduct.getName() + " has no stock available.");
+            }
+
+            validProducts.add(dbProduct);
+        }
+
+        return validProducts;
+    }
+
+    public void updateStockAfterSale(List<Product> products) {
+        for (Product product : products) {
+            Double newStock = product.getQuantity_available() - 1;
+            updateStock(product, newStock);
+        }
+    }
 }
+
+
+

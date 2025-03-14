@@ -20,4 +20,5 @@ public interface IClientService {
 
         public void editClient(Long id_original, ClientUpdateDTO clientUpdateDTO);
 
+        public void verifyClient(Client client);
 }
