@@ -1,4 +1,4 @@
-package com.proyecto.tienda.controller.exceptions;
+package com.proyecto.tienda.exceptions;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,5 +16,12 @@ public class ErrorResponse {
         this.message = message;
         this.timestamp = LocalDateTime.now();
         this.status = status;
+    }
+    public String getMessage() {
+        return message;
+    }
+
+    public int getStatus() {
+        return status;
     }
 }

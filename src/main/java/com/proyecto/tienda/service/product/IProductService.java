@@ -1,7 +1,6 @@
 package com.proyecto.tienda.service.product;
 
-import com.proyecto.tienda.dto.ProductUpdateDTO;
-import com.proyecto.tienda.dto.SaleUpdateDTO;
+import com.proyecto.tienda.dto.product.ProductDTO;
 import com.proyecto.tienda.model.Product;
 
 import java.util.List;
@@ -17,7 +16,7 @@ IProductService {
 
     public Product findProductById(Long id);
 
-    public void editProduct(Long id_original, ProductUpdateDTO productUpdateDTO);
+    public void editProduct(Long id_original, ProductDTO productDTO);
 
     public void updateStock(Product product, Double stock);
 

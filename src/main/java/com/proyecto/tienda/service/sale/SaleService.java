@@ -75,15 +75,21 @@ public class SaleService implements ISaleService{
     @Override
     @Transactional
     public ResponseEntity<Sale> saveSale(SaleUpdateDTO saleDTO) {
-        try {
-            // Verificar cliente
-            clientService.verifyClient(saleDTO.getClient());
+
+            // Verificar cliente, y si el cliente es nuevo?
+            clientService.verifyNewClient(saleDTO.getClient());
 
             // Verificar productos sin modificar stock aún
             List<Product> validProducts = productService.verifyProducts(saleDTO.getListProducts());
 
-            // Crear y guardar la venta
+            // Crear la venta
             Sale sale = new Sale(saleDTO.getDate_sale(), saleDTO.getTotal_amount(),validProducts, saleDTO.getClient());
+
+            if (!sale.verifyTotalAmount()) {
+                throw new TotalAmountErrorException("The total amount does not match the sum of products");
+            }
+
+
             Sale saleSaved = saleRepository.save(sale);
 
             // Ahora sí, actualizar el stock
@@ -97,8 +103,6 @@ public class SaleService implements ISaleService{
 
             return ResponseEntity.created(location).body(saleSaved);
 
-        } catch (IllegalArgumentException | IllegalStateException | ClientNotFoundException e) {
-            return ResponseEntity.badRequest().body(null);
         }
     }
 

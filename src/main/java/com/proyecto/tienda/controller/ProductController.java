@@ -1,8 +1,9 @@
 package com.proyecto.tienda.controller;
 
-import com.proyecto.tienda.dto.ProductUpdateDTO;
+import com.proyecto.tienda.dto.product.ProductDTO;
 import com.proyecto.tienda.model.Product;
 import com.proyecto.tienda.service.product.IProductService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,10 +23,12 @@ public class ProductController {
         return productService.getProducts();
     }
 
-    @PostMapping("/products/create")
-    public String createProduct(@RequestBody Product product) {
+    @PostMapping("/products/save")
+    public String createProduct(@Valid @RequestBody ProductDTO productDto) {
 
-        productService.saveProduct(product);
+        Product productModel = productDto.transformToModel();
+
+        productService.saveProduct(productModel);
 
         return "Successfully created product";
     }
@@ -43,7 +46,7 @@ public class ProductController {
 
     @PutMapping("product/edit/{code_product}")
     public Product editProduct(@PathVariable Long code_product,
-                               @RequestBody ProductUpdateDTO productUpdateDTO) {
+                               @RequestBody ProductDTO productUpdateDTO) {
 
         productService.editProduct(code_product, productUpdateDTO);
 

@@ -61,9 +61,9 @@ public class ClientService implements IClientService {
     }
 
     @Override
-    public void verifyClient(Client client) {
-        if (!clientRepository.existsById(client.getId_client())) {
-            throw new ClientNotFoundException("the client with " + client.getId_client() + "does not exist");
+    public void verifyNewClient(Client client) {
+        if (!clientRepository.existsByDni(client.getDni())) {
+            clientRepository.save(client);
         }
     }
 

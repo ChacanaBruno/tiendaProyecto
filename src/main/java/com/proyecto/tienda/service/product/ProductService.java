@@ -1,8 +1,10 @@
 package com.proyecto.tienda.service.product;
 
-import com.proyecto.tienda.dto.ProductUpdateDTO;
+import com.proyecto.tienda.dto.product.ProductDTO;
 import com.proyecto.tienda.model.Product;
 import com.proyecto.tienda.repository.IProductRepository;
+import com.proyecto.tienda.service.exceptions.OutOfStockException;
+import com.proyecto.tienda.service.exceptions.ProductErrorException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,6 +17,7 @@ public class ProductService implements IProductService {
 
     //inyeccion de dependencias
     public ProductService(IProductRepository productRepository) {
+
         this.productRepository = productRepository;
     }
 
@@ -28,9 +31,12 @@ public class ProductService implements IProductService {
 
     @Override
     public void saveProduct(Product product) {
-
-        productRepository.save(product);
-
+        if(productRepository.existsByName(product.getName()) && productRepository.existsByBrand(product.getBrand())) {
+            throw ProductErrorException.productAlreadyRegistered(product.getName(), product.getBrand());
+        }
+        else {
+            productRepository.save(product);
+        }
     }
 
     @Override
@@ -43,13 +49,12 @@ public class ProductService implements IProductService {
     @Override
     public Product findProductById(Long id) {
 
-        Product product = productRepository.findById(id).orElse(null);
-
-        return product;
+        return productRepository.findById(id)
+                .orElseThrow(() -> new ProductErrorException("Product id " + id + " no found"));
     }
 
     @Override
-    public void editProduct(Long id_original, ProductUpdateDTO productUpdateDTO) {
+    public void editProduct(Long id_original, ProductDTO productUpdateDTO) {
 
         Product product = this.findProductById(id_original);
 
@@ -70,10 +75,10 @@ public class ProductService implements IProductService {
 
         for (Product product : products) {
             Product dbProduct = productRepository.findById(product.getCode_product())
-                    .orElseThrow(() -> new IllegalArgumentException("Product not found: " + product.getCode_product()));
+                    .orElseThrow(() -> new ProductErrorException("Product not found: " + product.getName()));
 
             if (dbProduct.getQuantity_available() <= 0) {
-                throw new IllegalStateException("The product " + dbProduct.getName() + " has no stock available.");
+                throw new OutOfStockException("The product " + dbProduct.getName() + " has no stock available.");
             }
 
             validProducts.add(dbProduct);

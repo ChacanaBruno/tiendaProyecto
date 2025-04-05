@@ -1,7 +1,6 @@
 package com.proyecto.tienda.model;
 
 import com.proyecto.tienda.dto.ClientUpdateDTO;
-import com.proyecto.tienda.dto.ProductUpdateDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
