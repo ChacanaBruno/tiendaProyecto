@@ -1,6 +1,6 @@
 package com.proyecto.tienda.service.product;
 
-import com.proyecto.tienda.dto.product.ProductDTO;
+import com.proyecto.tienda.dto.product.ProductUpdateDTO;
 import com.proyecto.tienda.model.Product;
 import com.proyecto.tienda.repository.IProductRepository;
 import com.proyecto.tienda.service.exceptions.OutOfStockException;
@@ -54,8 +54,8 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public void editProduct(Long id_original, ProductDTO productUpdateDTO) {
-
+    public void editProduct(Long id_original, ProductUpdateDTO productUpdateDTO) {
+        // podria buscarlo por nombre y marca en vez de por id
         Product product = this.findProductById(id_original);
 
         // Actualiza los valores del producto con los datos del DTO

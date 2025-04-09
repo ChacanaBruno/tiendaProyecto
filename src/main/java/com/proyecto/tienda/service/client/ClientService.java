@@ -1,15 +1,14 @@
 package com.proyecto.tienda.service.client;
 
-import com.proyecto.tienda.dto.ClientUpdateDTO;
+import com.proyecto.tienda.dto.client.ClientDTO;
+import com.proyecto.tienda.dto.client.ClientUpdateDTO;
 import com.proyecto.tienda.model.Client;
 import com.proyecto.tienda.repository.IClientRepository;
-import com.proyecto.tienda.repository.exception.ClientNotFoundException;
-import com.proyecto.tienda.service.exceptions.TotalAmountErrorException;
-import org.springframework.http.ResponseEntity;
+import com.proyecto.tienda.service.exceptions.ClientErrorException;
 import org.springframework.stereotype.Service;
+import java.util.Optional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ClientService implements IClientService {
@@ -29,10 +28,15 @@ public class ClientService implements IClientService {
     }
 
     @Override
-    public void saveClient(Client client) {
+    public void saveClient(ClientDTO clientDto) {
+        if (clientRepository.existsByDni(clientDto.dni())) {
+            throw ClientErrorException.clientDniAlreadyRegistered(clientDto.dni());
+        }
 
-            clientRepository.save(client);
+        Client client = clientDto.transformToModel();
+        clientRepository.save(client);
     }
+
 
     @Override
     public void deleteClientById(Long id) {
@@ -53,18 +57,32 @@ public class ClientService implements IClientService {
 
         Client client = this.findClientById(id_original);
 
-        // Actualiza los valores del producto con los datos del DTO
+        String oldDni = client.getDni(); // Guardamos el DNI original
+
+        // Actualizamos con los nuevos datos
         client.updateFromDTO(clientDto);
 
-        this.saveClient(client);
+        // Si el DNI fue cambiado, hay que verificar que no esté en uso por otro cliente
+        if (!oldDni.equals(client.getDni())) {
+            Optional<Client> existing = clientRepository.findByDni(client.getDni());
+            if (existing.isPresent()) {
+                throw ClientErrorException.clientDniAlreadyRegistered(client.getDni());
+            }
+        }
 
+        clientRepository.save(client);
     }
-
-    @Override
+    /*@Override
     public void verifyNewClient(Client client) {
         if (!clientRepository.existsByDni(client.getDni())) {
             clientRepository.save(client);
         }
     }
-
+*/
+    @Override
+    public Client verifyNewClient(ClientDTO clientDto) {
+        return clientRepository.findByDni(clientDto.dni())
+                .orElseGet(() -> this.saveClient(clientDto));
+    }
+// continuarrr
 }

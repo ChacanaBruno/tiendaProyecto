@@ -1,6 +1,7 @@
 package com.proyecto.tienda.controller;
 
 import com.proyecto.tienda.dto.product.ProductDTO;
+import com.proyecto.tienda.dto.product.ProductUpdateDTO;
 import com.proyecto.tienda.model.Product;
 import com.proyecto.tienda.service.product.IProductService;
 import jakarta.validation.Valid;
@@ -46,9 +47,10 @@ public class ProductController {
 
     @PutMapping("product/edit/{code_product}")
     public Product editProduct(@PathVariable Long code_product,
-                               @RequestBody ProductDTO productUpdateDTO) {
+                               @RequestBody ProductUpdateDTO productEditDTO) {
 
-        productService.editProduct(code_product, productUpdateDTO);
+        // productEditDTO tiene los campos a editar indicados desde el front
+        productService.editProduct(code_product, productEditDTO);
 
         return productService.findProductById(code_product);
     }

@@ -12,7 +12,9 @@ import java.util.List;
 public class SaleController {
     ISaleService saleService;
 
-    public SaleController(ISaleService saleService) {this.saleService = saleService;}
+    public SaleController(ISaleService saleService) {
+        this.saleService = saleService;
+    }
 
     @GetMapping("/sales/fetch")
     public List<Sale> getSales() {
@@ -33,12 +35,13 @@ public class SaleController {
 
     @GetMapping("/sales/find/{id}")
     public Sale findSaleById(@PathVariable Long id) {
+
         return saleService.findSaleById(id);
     }
 
     @PutMapping("sales/edit/{code_sale}")
     public Sale editSale(@PathVariable Long code_sale,
-                            @RequestBody SaleUpdateDTO saleUpdateDTO) {
+                         @RequestBody SaleUpdateDTO saleUpdateDTO) {
 
         saleService.editSale(code_sale, saleUpdateDTO);
 

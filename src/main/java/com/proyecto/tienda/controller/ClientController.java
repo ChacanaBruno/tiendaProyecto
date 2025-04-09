@@ -1,6 +1,7 @@
 package com.proyecto.tienda.controller;
 
-import com.proyecto.tienda.dto.ClientUpdateDTO;
+import com.proyecto.tienda.dto.client.ClientDTO;
+import com.proyecto.tienda.dto.client.ClientUpdateDTO;
 import com.proyecto.tienda.model.Client;
 import com.proyecto.tienda.service.client.IClientService;
 import org.springframework.web.bind.annotation.*;
@@ -21,9 +22,9 @@ public class ClientController {
     }
 
     @PostMapping("/clients/create")
-    public String createClient(@RequestBody Client client) {
+    public String createClient(@RequestBody ClientDTO clientDto) {
 
-        clientService.saveClient(client);
+        clientService.saveClient(clientDto);
 
         return "Successfully created client";
     }

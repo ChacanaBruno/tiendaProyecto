@@ -4,6 +4,8 @@ import com.proyecto.tienda.model.Product;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import lombok.Getter;
+import lombok.Setter;
 
 public record ProductDTO(
         @NotEmpty(message = "name is required")

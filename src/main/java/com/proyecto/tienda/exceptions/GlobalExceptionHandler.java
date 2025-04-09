@@ -13,13 +13,13 @@ public class GlobalExceptionHandler {
         ErrorResponse errorResponse = new ErrorResponse(ex.getMessage(), HttpStatus.BAD_REQUEST.value());
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
-/*
-    @ExceptionHandler(ClientNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleClientNotFoundException(ClientNotFoundException ex) {
-        ErrorResponse errorResponse = new ErrorResponse(ex.getMessage(), HttpStatus.NOT_FOUND.value());
-        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+
+    @ExceptionHandler(ClientErrorException.class)
+    public ResponseEntity<ErrorResponse> handleClientErrorException(ClientErrorException ex) {
+        ErrorResponse errorResponse = new ErrorResponse(ex.getMessage(), HttpStatus.CONFLICT.value());
+        return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
     }
-*/
+
     @ExceptionHandler(ProductErrorException.class)
     public ResponseEntity<ErrorResponse> handleProductNotFoundException(ProductErrorException ex) {
         ErrorResponse errorResponse = new ErrorResponse(ex.getMessage(), HttpStatus.NOT_FOUND.value());

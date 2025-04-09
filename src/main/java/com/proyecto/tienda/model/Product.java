@@ -1,6 +1,6 @@
 package com.proyecto.tienda.model;
 
-import com.proyecto.tienda.dto.product.ProductDTO;
+import com.proyecto.tienda.dto.product.ProductUpdateDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,18 +32,18 @@ public class Product {
     // al recibir una edicion/update, esta puede ser parcial o total, si es parcial, algunos campos
     // de la solicitud quedaran null, por ende, se verifica para no perder valores
     //al menos por ahora
-    public void updateFromDTO(ProductDTO dto) {
-        if (dto.getName() != null) {
-            this.name = dto.getName();
+    public void updateFromDTO(ProductUpdateDTO product) {
+        if (product.getName() != null) {
+            this.name = product.getName();
         }
-        if (dto.getBrand() != null) {
-            this.brand = dto.getBrand();
+        if (product.getBrand() != null) {
+            this.brand = product.getBrand();
         }
-        if (dto.getPrice() != null) {
-            this.price = dto.getPrice();
+        if (product.getPrice() != null) {
+            this.price = product.getPrice();
         }
-        if (dto.getQuantityAvailable() != null) {
-            this.quantity_available = dto.getQuantityAvailable();
+        if (product.getQuantity_available()!= null) {
+            this.quantity_available = product.getQuantity_available();
         }
     }
 }

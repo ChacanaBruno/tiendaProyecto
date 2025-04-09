@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class SaleService implements ISaleService{
+public class SaleService implements ISaleService {
 
     private final ClientService clientService;
     private ISaleRepository saleRepository;
@@ -77,7 +77,7 @@ public class SaleService implements ISaleService{
     public ResponseEntity<Sale> saveSale(SaleUpdateDTO saleDTO) {
 
             // Verificar cliente, y si el cliente es nuevo?
-            clientService.verifyNewClient(saleDTO.getClient());
+            clientService.verifyNewClient(saleDTO.getClientDto());
 
             // Verificar productos sin modificar stock aún
             List<Product> validProducts = productService.verifyProducts(saleDTO.getListProducts());
@@ -104,7 +104,7 @@ public class SaleService implements ISaleService{
             return ResponseEntity.created(location).body(saleSaved);
 
         }
-    }
+
 
     @Override
     public void deleteSaleById(Long id) {
@@ -126,5 +126,4 @@ public class SaleService implements ISaleService{
 
         saleEdit.updateFromDTO(saleUpdateDTO);
     }
-
-}
+ }

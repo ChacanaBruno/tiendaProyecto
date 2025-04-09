@@ -1,6 +1,6 @@
 package com.proyecto.tienda.model;
 
-import com.proyecto.tienda.dto.ClientUpdateDTO;
+import com.proyecto.tienda.dto.client.ClientUpdateDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -35,6 +35,13 @@ public class Client {
         this.dni = dni;
         this.sales = sales;
     }
+
+    public Client(String first_name, String last_name, String dni) {
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.dni = dni;
+    }
+
 
     public void updateFromDTO(ClientUpdateDTO dto) {
 

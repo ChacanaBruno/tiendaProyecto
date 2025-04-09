@@ -1,5 +1,6 @@
 package com.proyecto.tienda.dto;
 
+import com.proyecto.tienda.dto.client.ClientDTO;
 import com.proyecto.tienda.model.Client;
 import com.proyecto.tienda.model.Product;
 import jakarta.validation.constraints.Min;
@@ -27,7 +28,7 @@ public class SaleUpdateDTO {
     private List<Product> listProducts;
 
     @NotNull(message = "Client cannot be null")
-    private Client client;
+    private ClientDTO clientDto;
 
     public SaleUpdateDTO() {
     }
